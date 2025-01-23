@@ -1,4 +1,4 @@
-#Agent-Based State Management System**
+**Agent-Based State Management System**
 
 This project is a Python-based case study exploring pseudo-artificial intelligence (AI) through agent-based systems. The focus is on developing agents that interact with their environment via state transitions, evaluating their decisions to optimize well-being and simulate adaptive intelligence.
 Overview
@@ -7,7 +7,7 @@ The core idea of this project is to create agents (pseudo-AI entities) capable o
 
 The system combines modular state management, cost-benefit analysis, and genetics-based adaptability to simulate complex decision-making processes.
 Key Systems
-1. ##Agents
+1. Agents
 
 Agents represent the pseudo-AI entities. Each agent:
 
@@ -16,7 +16,7 @@ Agents represent the pseudo-AI entities. Each agent:
     Evaluates transition costs, rewards, and its genetic predisposition to determine optimal actions.
     Uses its intellect (decision-making ability) to achieve favorable circumstances over time.
 
-2. ##States
+2. States
 
 States define the core actions agents can take, their associated costs, and potential benefits.
 
@@ -31,7 +31,7 @@ Example States:
     Travel: Moves agents between locations but incurs costs like time and energy.
     Idle: A fallback state for resting or waiting, with minimal rewards and penalties.
 
-3. ##Genome
+3. Genome
 
 The genome represents hereditary information unique to each agent. It encodes genetic traits that influence behavior, decision-making, and performance in various states.
 Genes
@@ -51,7 +51,7 @@ Gene Representation Rules
     Range Indication: Capitalization of the second character indicates whether the value is within the genomic range.
     Numerical Values: Values are displayed with one decimal point: WorE+1.0
 
-#How It Works
+How It Works
 State Transitions
 
     Action Set Evaluation: Agents evaluate the current state's possible actions using weighted probabilities based on transition costs, state benefits, and genetic predispositions.
@@ -88,7 +88,7 @@ States define action sets, representing possible transitions or behaviors, such 
     Work → Transition to Travel or Idle.
     Break → Return to Work or enter Idle.
 
-#Planned Features
+Planned Features
 
     Dynamic Environments: Introduce external factors like unexpected events or environmental changes that influence agent behavior.
     Adaptive Learning: Allow agents to modify their genome slightly based on cumulative performance.
