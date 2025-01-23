@@ -1,4 +1,4 @@
-#Agent-Based State Management System
+**Agent-Based State Management System**
 
 This project is a Python-based case study exploring pseudo-artificial intelligence (AI) through agent-based systems. The focus is on developing agents that interact with their environment via state transitions, evaluating their decisions to optimize well-being and simulate adaptive intelligence.
 Overview
