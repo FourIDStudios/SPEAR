@@ -1,15 +1,18 @@
 #Import the necessary libraries
 from Utils.Genes import Genes
+from Utils.Logger import Logger
 import json
 import random
 import math
 import os
 
-#Fetch Configurations
+#Initial Setup
+Logger.debug = True
 
+#Fetch Configurations
 Settings = {}
 targetDir = os.path.join(os.path.dirname(__file__), 'Utils\\settings.json')
-print(f"[PAI][GENOMES SEQUENCER]: Fetching settings from {targetDir}")
+Logger.logln(f"[PAI][GENOMES SEQUENCER]: Fetching settings from {targetDir}")
 with open(targetDir) as f:
     Settings = json.load(f)
 
@@ -61,7 +64,7 @@ class Genome:
         allGenes = Genes.Genes
         selectedGenes = list(allGenes.keys())
 
-        print(f"[PAI][GENOMES SEQUENCER]: Generating genome sequence with {geneLength} genes")
+        Logger.logln(f"[PAI][GENOMES SEQUENCER]: Generating genome sequence with {geneLength} genes")
         # shuffle the gene pool to select random genes
         random.shuffle(selectedGenes)
         
@@ -75,27 +78,34 @@ class Genome:
             #Check for base value
             basevalue = geneData.get('baseValue', None)
             if basevalue is None:
-                print(f"[PAI][GENOMES SEQUENCER]: No base value for gene: {gene}")
+                Logger.logln(f"[PAI][GENOMES SEQUENCER]: No base value for gene: {gene}")
                 continue
             
-            print(f"[PAI][GENOMES SEQUENCER]: Generating gene: {gene}")
+            Logger.logln(f"[PAI][GENOMES SEQUENCER]: Generating gene: {gene}")
             #Check for parent genome
-            parentValue = ParentGenome.get(gene, None) if ParentGenome is not None else 0
+            parentValue = 0
+            if(ParentGenome is not None):
+                #Check If the parent genome has the gene
+                if gene in ParentGenome:
+                    Logger.logln(f"[PAI][GENOMES SEQUENCER]: Parent genome has gene: {gene}")
+                    parentValue = ParentGenome[gene].get('value')
+            Logger.logln(f"[PAI][GENOMES SEQUENCER]: Parent value is {parentValue} {'Meaning there is no parent gene' if parentValue == 0 else ''}")
             
             #Initial genome value
             newValue = geneData.get('baseValue')
-            print(f"[PAI][GENOMES SEQUENCER]: Initial value for gene: {gene} is {newValue}")
+            Logger.logln(f"[PAI][GENOMES SEQUENCER]: Initial value for gene: {gene} is {newValue}")
             
             #Mutate the gene value
             newValue = newValue + random.uniform(-geneData.get('deviation', 0)*Settings['NaturalMutationRate'], geneData.get('deviation', 1)*Settings['NaturalMutationRate'])
 
-            print(f"[PAI][GENOMES SEQUENCER]: Mutated value for gene: {gene} is {newValue}")
+            Logger.logln(f"[PAI][GENOMES SEQUENCER]: Mutated value for gene: {gene} is {newValue}")
             
             #Influence from parent value
             if parentValue != 0:
-                print(f"[PAI][GENOMES SEQUENCER]: Parent value for gene: {gene} is {parentValue}")
+                #Dividers for Logger.logln output
+                Logger.logln(f"[PAI][GENOMES SEQUENCER]: Parent value for gene: {gene} is {parentValue}")
                 newValue = (newValue * abs(MutationRate - 1)) + (parentValue * MutationRate)
-            print(f"[PAI][GENOMES SEQUENCER]: Final value for gene: {gene} is {newValue}")
+            Logger.logln(f"[PAI][GENOMES SEQUENCER]: Final value for gene: {gene} is {newValue}")
             
             #Get the gene value in the sequence
             sequence[gene] = {
@@ -105,7 +115,7 @@ class Genome:
                 'description': geneData.get('description'),
                 'genomicrange': geneData.get('genomicrange')
             }
-            print(f"[PAI][GENOMES SEQUENCER]: Gene {gene} added to sequence\n")
+            Logger.logln(f"[PAI][GENOMES SEQUENCER]: Gene {gene} added to sequence\n")
             
         return sequence
     
@@ -125,8 +135,18 @@ class Genome:
             # Ensure the gene value stays within the genomic range, This is commented out because i want to see the effect of the mutation given drastic conditions
             # gene['value'] = max(gene['genomicrange'][0], min(gene['value'], gene['genomicrange'][1]))
         else:
-            print(f"[PAI][GENOMES SEQUENCER]: Could not mutate gene: {geneName} because it does not exist.")
+            Logger.logln(f"[PAI][GENOMES SEQUENCER]: Could not mutate gene: {geneName} because it does not exist.")
 
-Agent = Genome(None, 0.5, 4)
+Logger.logln(f"[PAI][GENOMES SEQUENCER]: Creating Agent A", True)
+AgentA = {
+    'Name': "Agent A",
+    'Genome': Genome(),
+}
+Logger.logln(f"[PAI][GENOMES SEQUENCER]: Creating Agent B, with Agent A as parent", True)
+AgentB = {
+    'Name': "Agent A",
+    'Genome': Genome(AgentA['Genome'].getpureSequence()),
+}
+
 
 
