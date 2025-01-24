@@ -131,12 +131,14 @@ class Genome:
         """
         gene = self.Sequence.get(geneName)
         if gene:
-            self.Sequence[geneName] = Genes.mutate_gene(gene, mutationRate)
+            self.Sequence[geneName] = Genes.mutate_gene(gene, mutationRate) #The mutation of genes is offloaded and handled by the Genes class
+            
             # Ensure the gene value stays within the genomic range, This is commented out because i want to see the effect of the mutation given drastic conditions
             # gene['value'] = max(gene['genomicrange'][0], min(gene['value'], gene['genomicrange'][1]))
         else:
             Logger.logln(f"[PAI][GENOMES SEQUENCER]: Could not mutate gene: {geneName} because it does not exist.")
 
+#=================================================================Test & Debug Area
 Logger.logln(f"[PAI][GENOMES SEQUENCER]: Creating Agent A", True)
 AgentA = {
     'Name': "Agent A",

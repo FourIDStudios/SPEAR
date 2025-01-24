@@ -2,138 +2,199 @@ import random
 
 class Genes:
     Genes = {
-        'HungerGain': {
+        'SocialAffinityGain': {
             'baseValue': 0.1,
             'deviation': 0.05,
-            'description': "Increases hunger faster, making the agent feel hungry more often.",
+            'description': "Increases social affinity, making the agent more extroverted.",
             'genomicrange': [0, 0.5]
         },
-        'HungerDrain': {
+        'SocialAffinityDrain': {
             'baseValue': 0.05,
             'deviation': 0.03,
-            'description': "Reduces the rate of hunger increase, keeping the agent satisfied for longer periods.",
+            'description': "Decreases social affinity, making the agent more introverted.",
             'genomicrange': [0, 0.5]
         },
-        'SleepGain': {
+        'RiskAversionGain': {
             'baseValue': 0.1,
-            'deviation': 0.04,
-            'description': "Increases the agent's need for sleep, causing them to feel tired more quickly.",
+            'deviation': 0.05,
+            'description': "Increases risk aversion, making the agent more cautious.",
             'genomicrange': [0, 0.5]
         },
-        'SleepDrain': {
+        'RiskAversionDrain': {
             'baseValue': 0.05,
-            'deviation': 0.02,
-            'description': "Reduces the agent's need for sleep, allowing them to function well with less rest.",
-            'genomicrange': [0, 0.5]
-        },
-        'WorkEthic': {
-            'baseValue': 0.2,
-            'deviation': 0.05,
-            'description': "Improves the agent's motivation and efficiency at work, leading to more productivity.",
-            'genomicrange': [0, 0.5]
-        },
-        'WorkFatigue': {
-            'baseValue': 0.1,
-            'deviation': 0.04,
-            'description': "Causes the agent to tire more quickly during work, reducing work efficiency.",
-            'genomicrange': [0, 0.5]
-        },
-        'Focus': {
-            'baseValue': 0.15,
-            'deviation': 0.05,
-            'description': "Enhances the agent's ability to concentrate on tasks, increasing work and learning efficiency.",
-            'genomicrange': [0, 0.5]
-        },
-        'Distraction': {
-            'baseValue': 0.1,
-            'deviation': 0.04,
-            'description': "Makes it easier for the agent to get distracted, lowering concentration and efficiency.",
-            'genomicrange': [0, 0.5]
-        },
-        'MetabolismBoost': {
-            'baseValue': 0.1,
             'deviation': 0.03,
-            'description': "Increases the rate at which the agent processes food, reducing hunger and food requirements.",
+            'description': "Decreases risk aversion, making the agent more of a risk-taker.",
             'genomicrange': [0, 0.5]
         },
-        'FoodSensitivity': {
+        'AdaptabilityGain': {
             'baseValue': 0.1,
-            'deviation': 0.04,
-            'description': "Increases sensitivity to food, causing negative effects from certain meals.",
-            'genomicrange': [0, 0.5]
-        },
-        'SocialNeed': {
-            'baseValue': 0.2,
             'deviation': 0.05,
-            'description': "Increases the agent's need for social interaction, making them crave companionship.",
+            'description': "Increases adaptability, making the agent more flexible.",
             'genomicrange': [0, 0.5]
         },
-        'SocialFatigue': {
-            'baseValue': 0.1,
+        'AdaptabilityDrain': {
+            'baseValue': 0.05,
             'deviation': 0.03,
-            'description': "Causes the agent to become tired from socializing, limiting the duration of social interactions.",
+            'description': "Decreases adaptability, making the agent more rigid.",
             'genomicrange': [0, 0.5]
         },
-        'Charisma': {
-            'baseValue': 0.15,
-            'deviation': 0.05,
-            'description': "Improves the agent's ability to charm and influence others, facilitating social bonds.",
-            'genomicrange': [0, 0.5]
-        },
-        'Repulsion': {
-            'baseValue': 0.1,
-            'deviation': 0.04,
-            'description': "Makes the agent more likely to repel others, reducing their ability to form relationships.",
-            'genomicrange': [0, 0.5]
-        },
-        'LearningSpeed': {
-            'baseValue': 0.2,
-            'deviation': 0.05,
-            'description': "Increases the rate at which the agent learns new information and skills.",
-            'genomicrange': [0, 0.5]
-        },
-        'LearningResistance': {
-            'baseValue': 0.1,
-            'deviation': 0.04,
-            'description': "Makes the agent less receptive to learning new skills and concepts.",
-            'genomicrange': [0, 0.5]
-        },
-        'Curiosity': {
-            'baseValue': 0.15,
-            'deviation': 0.05,
-            'description': "Increases the agent's desire to explore and acquire new knowledge.",
-            'genomicrange': [0, 0.5]
-        },
-        'Apathy': {
-            'baseValue': 0.1,
-            'deviation': 0.04,
-            'description': "Decreases the agent's desire to learn, making them indifferent to self-improvement.",
-            'genomicrange': [0, 0.5]
-        },
-        'RiskTaking': {
+        'CuriosityGain': {
             'baseValue': 0.1,
             'deviation': 0.05,
-            'description': "Increases the agent's willingness to engage in risky activities or take chances.",
+            'description': "Increases curiosity, making the agent more likely to explore.",
             'genomicrange': [0, 0.5]
         },
-        'Cautiousness': {
-            'baseValue': 0.15,
+        'CuriosityDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases curiosity, making the agent stick to routines.",
+            'genomicrange': [0, 0.5]
+        },
+        'SelfDisciplineGain': {
+            'baseValue': 0.1,
             'deviation': 0.05,
-            'description': "Makes the agent more careful and hesitant, avoiding risky actions and preferring to think things through.",
+            'description': "Increases self-discipline, making the agent more disciplined.",
             'genomicrange': [0, 0.5]
         },
-        'Impulsiveness': {
-            'baseValue': 1,
-            'deviation': 0.5,
-            'description': "Affects the agent's willingness to stay in states.",
-            'genomicrange': [-1, 1]
+        'SelfDisciplineDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases self-discipline, making the agent more impulsive.",
+            'genomicrange': [0, 0.5]
         },
-        'RiskTolerance': {
-            'baseValue': 0.15,
+        'EmpathyGain': {
+            'baseValue': 0.1,
             'deviation': 0.05,
-            'description': "Makes the agent more careful and hesitant, avoiding risky actions and preferring to think things through.",
+            'description': "Increases empathy, making the agent more emotionally supportive.",
             'genomicrange': [0, 0.5]
-        }}
+        },
+        'EmpathyDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases empathy, making the agent more detached.",
+            'genomicrange': [0, 0.5]
+        },
+        'StressToleranceGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases stress tolerance, making the agent more calm and composed.",
+            'genomicrange': [0, 0.5]
+        },
+        'StressToleranceDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases stress tolerance, making the agent more easily overwhelmed.",
+            'genomicrange': [0, 0.5]
+        },
+        'OptimismGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases optimism, making the agent more positive.",
+            'genomicrange': [0, 0.5]
+        },
+        'OptimismDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases optimism, making the agent more pessimistic.",
+            'genomicrange': [0, 0.5]
+        },
+        'AmbitionGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases ambition, making the agent more driven.",
+            'genomicrange': [0, 0.5]
+        },
+        'AmbitionDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases ambition, making the agent more content with the status quo.",
+            'genomicrange': [0, 0.5]
+        },
+        'EnergyLevelGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases energy level, making the agent more energetic.",
+            'genomicrange': [0, 0.5]
+        },
+        'EnergyLevelDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases energy level, making the agent more lethargic.",
+            'genomicrange': [0, 0.5]
+        },
+        'HungerSensitivityGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases hunger sensitivity, making the agent more responsive to hunger.",
+            'genomicrange': [0, 0.5]
+        },
+        'HungerSensitivityDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases hunger sensitivity, making the agent less responsive to hunger.",
+            'genomicrange': [0, 0.5]
+        },
+        'SleepRequirementGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases sleep requirement, making the agent need more sleep.",
+            'genomicrange': [0, 0.5]
+        },
+        'SleepRequirementDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases sleep requirement, making the agent need less sleep.",
+            'genomicrange': [0, 0.5]
+        },
+        'SpendingHabitsGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases spending habits, making the agent more extravagant.",
+            'genomicrange': [0, 0.5]
+        },
+        'SpendingHabitsDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases spending habits, making the agent more frugal.",
+            'genomicrange': [0, 0.5]
+        },
+        'AltruismGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases altruism, making the agent more generous and giving.",
+            'genomicrange': [0, 0.5]
+        },
+        'AltruismDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases altruism, making the agent more self-centered.",
+            'genomicrange': [0, 0.5]
+        },
+        'ConformityGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases conformity, making the agent more of a rule follower.",
+            'genomicrange': [0, 0.5]
+        },
+        'ConformityDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases conformity, making the agent more of a rebel/independent thinker.",
+            'genomicrange': [0, 0.5]
+        },
+        'PreferenceForRoutineGain': {
+            'baseValue': 0.1,
+            'deviation': 0.05,
+            'description': "Increases preference for routine, making the agent rely more on consistent routines.",
+            'genomicrange': [0, 0.5]
+        },
+        'PreferenceForRoutineDrain': {
+            'baseValue': 0.05,
+            'deviation': 0.03,
+            'description': "Decreases preference for routine, making the agent thrive on change.",
+            'genomicrange': [0, 0.5]
+        }
+        }
     
     @staticmethod
     def mutate_gene(gene, mutationRate):
@@ -142,3 +203,4 @@ class Genes:
 
         # Ensure the gene value stays within the genomic range
         gene['value'] = max(gene['genomicrange'][0], min(gene['value'], gene['genomicrange'][1]))
+        return gene
