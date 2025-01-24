@@ -136,8 +136,8 @@ class Genes:
         }}
     
     @staticmethod
-    def mutate_gene(gene):
-        mutationFactor = random.random() * 0.1 - 0.05  # +/- 5% mutation
+    def mutate_gene(gene, mutationRate):
+        mutationFactor = random.random() * 0.1 - mutationRate  # +/- 5% mutation
         gene['value'] += mutationFactor
 
         # Ensure the gene value stays within the genomic range

@@ -1,0 +1,5 @@
+{
+    "NaturalMutationRate": 0.3,
+    "DefaultParentMutationRate": 0.25,
+    "GenomeLength": 6
+}

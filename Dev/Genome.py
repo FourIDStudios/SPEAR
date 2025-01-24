@@ -1,6 +1,17 @@
+#Import the necessary libraries
 from Utils.Genes import Genes
+import json
 import random
 import math
+import os
+
+#Fetch Configurations
+
+Settings = {}
+targetDir = os.path.join(os.path.dirname(__file__), 'Utils\\settings.json')
+print(f"[PAI][GENOMES SEQUENCER]: Fetching settings from {targetDir}")
+with open(targetDir) as f:
+    Settings = json.load(f)
 
 class Genome:
     """
@@ -35,14 +46,14 @@ class Genome:
             sequenceString += formattedGene
         return sequenceString
     
-    def __init__(self, ParentGenome = None, MutationRate = 0.5, geneLength = 4):
+    def __init__(self, ParentGenome = None, MutationRate = Settings['DefaultParentMutationRate'], geneLength = Settings['GenomeLength']):
         self.Sequence = self.GenerateGenome(ParentGenome, MutationRate, geneLength)
         
         pass
 
 
     @staticmethod
-    def GenerateGenome(ParentGenome=None, MutationRate = 0.5, geneLength = 4):
+    def GenerateGenome(ParentGenome=None, MutationRate = Settings['DefaultParentMutationRate'], geneLength = Settings['GenomeLength']):
         """
         Generate a genome sequence based on the parent genome(if applicable) and mutation rate
         """
@@ -76,8 +87,7 @@ class Genome:
             print(f"[PAI][GENOMES SEQUENCER]: Initial value for gene: {gene} is {newValue}")
             
             #Mutate the gene value
-            if random.random() < MutationRate:
-                newValue = newValue + random.uniform(-geneData.get('deviation', 0), geneData.get('deviation', 1))
+            newValue = newValue + random.uniform(-geneData.get('deviation', 0)*Settings['NaturalMutationRate'], geneData.get('deviation', 1)*Settings['NaturalMutationRate'])
 
             print(f"[PAI][GENOMES SEQUENCER]: Mutated value for gene: {gene} is {newValue}")
             
@@ -95,11 +105,28 @@ class Genome:
                 'description': geneData.get('description'),
                 'genomicrange': geneData.get('genomicrange')
             }
-            print(f"[PAI][GENOMES SEQUENCER]: Gene {gene} added to sequence")
+            print(f"[PAI][GENOMES SEQUENCER]: Gene {gene} added to sequence\n")
             
         return sequence
     
+    def getpureSequence(self):
+        """
+        Get the pure genome sequence without any formatting
+        """
+        return self.Sequence
+    
+    def mutateGene(self, geneName, mutationRate):
+        """
+        Mutate a gene in the genome sequence
+        """
+        gene = self.Sequence.get(geneName)
+        if gene:
+            self.Sequence[geneName] = Genes.mutate_gene(gene, mutationRate)
+            # Ensure the gene value stays within the genomic range, This is commented out because i want to see the effect of the mutation given drastic conditions
+            # gene['value'] = max(gene['genomicrange'][0], min(gene['value'], gene['genomicrange'][1]))
+        else:
+            print(f"[PAI][GENOMES SEQUENCER]: Could not mutate gene: {geneName} because it does not exist.")
 
 Agent = Genome(None, 0.5, 4)
-print(Agent)
-print(str(Agent))
+
+
