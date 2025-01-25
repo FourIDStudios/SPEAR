@@ -12,6 +12,25 @@ This project explores the development of an **agent-based artificial intelligenc
 - [Planned Features](#planned-features)
 - [Getting Started](#getting-started)
 
+## Case Study: Identifying Key Factors Affecting AI Decision-Making
+
+The ultimate goal of this project is to serve as a **case study** for identifying and understanding the **significant factors** that influence artificial intelligence decision-making. Through this exploration, we aim to uncover which variables and approaches most effectively impact the behavior of intelligent agents in complex environments.
+
+### Approach
+
+Our approach is unique in that it evolves into an amalgamation of varied ai systems, our system will maintain a state based approach as to allow visualizing and understanding "the flow" of an Agent to be simplier, without loosing out on the complexities involved in complex nural networks, 
+this wil also allow us to configure variouse aspects of the Agent that wouldn't otherwise be possible with a more singular system. I understand that this isn't anything 'revolutionary' but i think exploring the small nuances that affect an Agents decision making is worthwhile, similar to how
+we utilized the Sigmoid function to calculate relative weights until we realized that the much simplier ReLU approach resulted in 'faster learners'. In simplier terms, sometimes simplicity is key.
+
+By gradually introducing advanced AI systems like **utility-based models**, **reinforcement learning**, and **genetic algorithms**, we aim to test and identify which techniques provide the most robust and effective solutions for managing the complexity of state transitions in real-time.
+
+Ultimately, the goal is to develop a system that can:
+- Combine the strengths of traditional AI and neural-based learning models.
+- Handle complex and dynamic state transitions through an evolving, adaptable decision-making process.
+- Improve over time, learning from experiences and adjusting to new challenges in the environment.
+
+This case study will contribute to understanding the evolution of agent-based AI and provide insights into how various learning mechanisms can be integrated into a unified system for complex decision-making. You can find more clearly defined goals below.
+
 ## Goals
 
 The primary goal is to create agents that can:
