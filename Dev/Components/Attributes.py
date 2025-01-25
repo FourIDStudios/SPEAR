@@ -3,6 +3,7 @@ import os
 import json
 import math
 
+
 class Attribute:
     """
     Represents a single attribute of an agent.
@@ -17,6 +18,9 @@ class Attribute:
         self.min_value = min_value
         self.max_value = max_value
         self.optimal_value = optimal_value
+        
+        #Represents Genomic Influence on the attribute, i.e what gene and how much it influences the attribute
+        self.genomicInfluence = {}
         pass
     
 class Attributes:
@@ -46,7 +50,8 @@ class Attributes:
                 initial_value=details.get("benefits"),
                 min_value=details.get("maxDuration"),
                 max_value= details.get("max_value"),
-                optimal_value= details.get("optimal_value")
+                optimal_value= details.get("optimal_value"),
+                genomicInfluence = details.get("genomicInfluence")
         )
         for attribute_name, details in attribute_config.items()
         }
@@ -55,18 +60,80 @@ class Attributes:
         self.last_updated = time.time()
         
     #==================================================[Core methods]==================================================
-    def Modify(self, attribute_name, value):
+    def Modify(self, Agent, attribute_name, value):
         """
         Modifies the value of an attribute by a given amount.
         
         :param attribute_name: The name of the attribute to modify.
         :param value: The amount to modify the attribute by.
         """
-        attribute = self.attributes.get(attribute_name)
-        if not attribute:
+        
+        # Fetch necessary information from the agent
+        agentGenome = Agent.genome
+        
+        # Ensure the attribute exists
+        attribute:Attribute = self.attributes.get(attribute_name)
+        if not attribute or not agentGenome:
             return False
-        attribute['value'] = math.max(attribute., min(value, maximum))
+        
+        # Update the attribute value, ensuring it stays within the min/max bounds with the genomic influence
+        attribute['value'] = math.max(attribute.min_value, min(attribute.value+value, attribute.max_value))
+        
+        # Check for genomic influence (Gain or Drain) i.e AmbitionGain, AmbitionDrain
+        for geneName, influence in attribute.genomicInfluence.items():
+            if(str.endswith(geneName, "Gain")):
+                #Check if the gene is present in the genome
+                geneInfo = agentGenome.getGene(geneName)
+                if not geneInfo or geneInfo == None:
+                    continue
+                gainAmount = value * (influence * geneInfo.value)
+                attribute['value'] = math.max(attribute.min_value, min(attribute['value']+gainAmount, attribute.max_value))
+            elif(str.endswith(geneName, "Drain")):
+                #Check if the gene is present in the genome
+                geneInfo = agentGenome.getGene(geneName)
+                if not geneInfo or geneInfo == None:
+                    continue
+                drainAmount = value * (influence * geneInfo.value)
+                attribute['value'] = math.max(attribute.min_value, min(attribute['value']-drainAmount, attribute.max_value))
+        
+        
         return True
     
+    def Get(self, attribute_name):
+        """
+        Retrieves an attribute by name.
+        
+        :param attribute_name: The name of the attribute to retrieve.
+        :return: The attribute object.
+        """
+        return self.attributes.get(attribute_name)
+    
+    def GetValue(self, attribute_name):
+        """
+        Retrieves the value of an attribute.
+        
+        :param attribute_name: The name of the attribute to retrieve.
+        :return: The value of the attribute.
+        """
+        # Ensure the attribute exists
+        attribute:Attribute = self.attributes.get(attribute_name)
+        if not attribute:
+            return None
+        
+        return attribute.value
+    
+    def GetWellBeing(self):
+        """
+        Calculates the agent's well-being based on the current attribute values.
+        These values are compared to the optimal values to determine the agent's overall well-being.
+        
+        :return: The agent's well-being as a percentage.
+        """
+        # Calculate the total well-being based on the difference between the current and optimal values
+        total_difference = sum(abs(attribute.value - attribute.optimal_value) for attribute in self.attributes.values())
+        total_possible_difference = sum(abs(attribute.max_value - attribute.min_value) for attribute in self.attributes.values())
+        
+        # Calculate the well-being as a percentage
+        return 100 - (total_difference / total_possible_difference) * 100
     
     #==================================================[Utility methods]==================================================

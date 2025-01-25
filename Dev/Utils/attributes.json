@@ -4,111 +4,175 @@
         "initial_value": 1,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "EnergyLevelGain": 0.5,
+            "EnergyLevelDrain": -0.5
+        }
     },
     "Health": {
         "description": "Reflects the agent's overall physical well-being. Low health impacts performance.",
         "initial_value": 100,
         "min_value": 0,
         "max_value": 100,
-        "optimal_value": 100
+        "optimal_value": 100,
+        "influence_genes": {
+            "AdaptabilityGain": 0.5,
+            "AdaptabilityDrain": -0.5
+        }
     },
     "Hunger": {
         "description": "Indicates how satiated the agent feels. Hunger influences mood, energy, and decision-making.",
         "initial_value": 0,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 0
+        "optimal_value": 0,
+        "influence_genes": {
+            "HungerSensitivityGain": 0.5,
+            "HungerSensitivityDrain": -0.5
+        }
     },
     "Sleep": {
         "description": "Represents how rested the agent is. Affects focus, energy, and mood.",
         "initial_value": 7,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 7
+        "optimal_value": 7,
+        "influence_genes": {
+            "SleepRequirementGain": 0.5,
+            "SleepRequirementDrain": -0.5
+        }
     },
     "Focus": {
         "description": "Measures how well the agent can concentrate on tasks.",
         "initial_value": 7,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "SelfDisciplineGain": 0.5,
+            "SelfDisciplineDrain": -0.5
+        }
     },
     "Stress": {
         "description": "Indicates the agent's mental strain. High stress reduces decision-making capacity.",
         "initial_value": 2,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 0
+        "optimal_value": 0,
+        "influence_genes": {
+            "StressToleranceGain": 0.5,
+            "StressToleranceDrain": -0.5
+        }
     },
     "Mood": {
         "description": "A general measure of the agent's emotional state, impacting motivation and social behavior.",
         "initial_value": 5,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "OptimismGain": 0.5,
+            "OptimismDrain": -0.5
+        }
     },
     "SocialSatisfaction": {
         "description": "Tracks the agent's sense of fulfillment from social interactions.",
         "initial_value": 7,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "SocialAffinityGain": 0.5,
+            "SocialAffinityDrain": -0.5
+        }
     },
     "RelationshipQuality": {
         "description": "A measure of how strong the agent’s bonds are with others in their environment.",
         "initial_value": 5,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "EmpathyGain": 0.5,
+            "EmpathyDrain": -0.5
+        }
     },
     "Knowledge": {
         "description": "Represents the agent's understanding and information about its environment and tasks.",
         "initial_value": 0,
         "min_value": 0,
         "max_value": 100,
-        "optimal_value": 100
+        "optimal_value": 100,
+        "influence_genes": {
+            "CuriosityGain": 0.5,
+            "CuriosityDrain": -0.5
+        }
     },
     "DecisionConfidence": {
         "description": "Measures how certain the agent feels about its choices.",
         "initial_value": 7,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "RiskAversionGain": 0.5,
+            "RiskAversionDrain": -0.5
+        }
     },
     "Safety": {
         "description": "Reflects how secure the agent feels in its current environment.",
         "initial_value": 100,
         "min_value": 0,
         "max_value": 100,
-        "optimal_value": 100
+        "optimal_value": 100,
+        "influence_genes": {
+            "AdaptabilityGain": 0.5,
+            "AdaptabilityDrain": -0.5
+        }
     },
     "Comfort": {
         "description": "Tracks how pleasant the agent’s environment is, including temperature, cleanliness, or personal preference.",
         "initial_value": 8,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "AdaptabilityGain": 0.5,
+            "AdaptabilityDrain": -0.5
+        }
     },
     "Resources": {
         "description": "Represents access to necessities (food, money, tools).",
         "initial_value": 5,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "SpendingHabitsGain": 0.5,
+            "SpendingHabitsDrain": -0.5
+        }
     },
     "Fulfillment": {
         "description": "Measures the agent's sense of purpose or long-term satisfaction.",
         "initial_value": 7,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "AmbitionGain": 0.5,
+            "AmbitionDrain": -0.5
+        }
     },
     "Progress": {
         "description": "Tracks how the agent perceives its advancement toward goals or self-improvement.",
         "initial_value": 5,
         "min_value": 0,
         "max_value": 10,
-        "optimal_value": 10
+        "optimal_value": 10,
+        "influence_genes": {
+            "AmbitionGain": 0.5,
+            "AmbitionDrain": -0.5
+        }
     }
 }

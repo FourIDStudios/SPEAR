@@ -54,6 +54,11 @@ class Genome:
         
         pass
 
+    def getGene(self, geneName):
+        """
+        Get a gene from the genome sequence
+        """
+        return self.Sequence.get(geneName)
 
     @staticmethod
     def GenerateGenome(ParentGenome=None, MutationRate = Settings['DefaultParentMutationRate'], geneLength = Settings['GenomeLength']):
@@ -137,6 +142,7 @@ class Genome:
             # gene['value'] = max(gene['genomicrange'][0], min(gene['value'], gene['genomicrange'][1]))
         else:
             Logger.logln(f"[PAI][GENOMES SEQUENCER]: Could not mutate gene: {geneName} because it does not exist.")
+
 
 #=================================================================Test & Debug Area
 Logger.logln(f"[PAI][GENOMES SEQUENCER]: Creating Agent A", True)
