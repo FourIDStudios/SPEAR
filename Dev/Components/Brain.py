@@ -31,7 +31,7 @@ class Brain:
 
         :param initial_state: The starting State object.
         """
-        self.current_state:State = initial_state
+        self.current_state:State = initial_state if initial_state else States["Resting"]
         self.interval = interval
     
     #==================================================[Core methods]==================================================
@@ -144,8 +144,8 @@ class Brain:
 
 #==================================================[Testing]==================================================
 
-# Create Agent A with the initial state 'resting'
-AgentA = Brain(States["Resting"])
+# # Create Agent A with the initial state 'resting'
+# AgentA = Brain(States["Resting"])
 
-# Start the autonomous decision-making loop
-AgentA.Think(None)
+# # Start the autonomous decision-making loop
+# AgentA.Think(None)
