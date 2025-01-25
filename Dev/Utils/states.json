@@ -1,0 +1,42 @@
+{
+    "Resting": {
+      "actions": {
+        "Eat": "Eating",
+        "Work": "Working"
+      },
+      "benefits": {
+        "Energy": 1
+      },
+      "maxDuration": 5
+    },
+    "Eating": {
+      "actions": {
+        "Rest": "Resting",
+        "Work": "Working"
+      },
+      "benefits": {
+        "Health": 1
+      },
+      "maxDuration": 5
+    },
+    "Working": {
+      "actions": {
+        "Rest": "Resting",
+        "Explore": "Exploring"
+      },
+      "benefits": {
+        "Money": 1
+      },
+      "maxDuration": 5
+    },
+    "Exploring": {
+      "actions": {
+        "Rest": "Resting",
+        "Work": "Working"
+      },
+      "benefits": {
+        "Happiness": 1
+      },
+      "maxDuration": 5
+    }
+  }
