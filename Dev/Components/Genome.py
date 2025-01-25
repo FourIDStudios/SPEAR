@@ -1,17 +1,19 @@
 #Import the necessary libraries
-from Utils.Genes import Genes
-from Utils.Logger import Logger
 import json
 import random
 import math
 import os
+from Genes import Genes  # This works since they are in the same directory
+
+from Utils.Logger import Logger # Error: ModuleNotFoundError: No module named 'Utils'
 
 #Initial Setup
 Logger.debug = True
 
 #Fetch Configurations
 Settings = {}
-targetDir = os.path.join(os.path.dirname(__file__), 'Utils\\settings.json')
+targetDir = os.path.join(os.path.dirname(__file__), '..', 'Utils', 'settings.json')
+
 Logger.logln(f"[PAI][GENOMES SEQUENCER]: Fetching settings from {targetDir}")
 with open(targetDir) as f:
     Settings = json.load(f)

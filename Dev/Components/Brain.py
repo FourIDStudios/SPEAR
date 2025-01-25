@@ -6,7 +6,8 @@ from Utils.Logger import Logger
 
 #Fetch Configurations
 state_config = {}
-targetDir = os.path.join(os.path.dirname(__file__), 'Utils\\states.json')
+targetDir = os.path.join(os.path.dirname(__file__), '..', 'Utils', 'states.json')
+
 Logger.debug = True
 Logger.logln(f"[PAI][FSM]: Fetching states from {targetDir}")
 with open(targetDir) as f:

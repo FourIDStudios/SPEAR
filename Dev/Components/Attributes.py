@@ -38,7 +38,8 @@ class Attributes:
         """
         #Fetch Configurations
         attribute_config = {}
-        targetDir = os.path.join(os.path.dirname(__file__), 'Utils\\attributes.json')
+        targetDir = os.path.join(os.path.dirname(__file__), '..', 'Utils', 'attributes.json')
+
         with open(targetDir) as f:
             attribute_config = json.load(f)
         
@@ -95,7 +96,6 @@ class Attributes:
                     continue
                 drainAmount = value * (influence * geneInfo.value)
                 attribute['value'] = math.max(attribute.min_value, min(attribute['value']-drainAmount, attribute.max_value))
-        
         
         return True
     
