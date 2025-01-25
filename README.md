@@ -1,95 +1,115 @@
-**Agent-Based State Management System**
+# Agent-Based AI System
 
-This project is a Python-based case study exploring pseudo-artificial intelligence (AI) through agent-based systems. The focus is on developing agents that interact with their environment via state transitions, evaluating their decisions to optimize well-being and simulate adaptive intelligence.
-Overview
+## Overview
 
-The core idea of this project is to create agents (pseudo-AI entities) capable of selecting and transitioning between various states to maximize favorable outcomes. Each agent possesses a genome, a hereditary system that influences its decision-making, behaviors, and interactions with the environment.
+This project explores the development of an **agent-based artificial intelligence system** designed to simulate agents interacting with their environment. These agents will perceive their surroundings, make decisions based on those perceptions, and adapt over time. The system will evolve from simple rule-based models to more sophisticated decision-making frameworks, such as utility-based AI, reinforcement learning (RL), and potentially genetic algorithms (GAs).
 
-The system combines modular state management, cost-benefit analysis, and genetics-based adaptability to simulate complex decision-making processes.
-Key Systems
-1. Agents
+## Table of Contents
+- [Goals](#goals)
+- [Key Milestones](#key-milestones)
+- [Current Development Path](#current-development-path)
+- [Features](#features)
+- [Planned Features](#planned-features)
+- [Getting Started](#getting-started)
 
-Agents represent the pseudo-AI entities. Each agent:
+## Goals
 
-    Has its own state (current action or focus).
-    Transitions between states based on weighted decisions.
-    Evaluates transition costs, rewards, and its genetic predisposition to determine optimal actions.
-    Uses its intellect (decision-making ability) to achieve favorable circumstances over time.
+The primary goal is to create agents that can:
 
-2. States
+- **Perceive**: Gather information from their environment.
+- **Decide**: Make decisions based on their perceptions and internal needs.
+- **Adapt**: Learn from their experiences and improve over time.
 
-States define the core actions agents can take, their associated costs, and potential benefits.
+The system follows a standard AI pipeline:
+- **Input** (Perception) → **Processing** (Decision-Making) → **Output** (Actions) → **Feedback** (Learning)
 
-    State Modules: Each state is implemented as a separate module, defining its action set and transition logic.
-    Action Sets: States provide a set of possible actions (e.g., working, traveling, or taking a break) with their own costs and rewards.
-    Transition Costs: Moving from one state to another requires a cost that must be weighed against the expected benefits.
-    Agent Intelligence: The "intelligence" of an agent is reflected in its ability to prioritize actions that yield long-term benefits over immediate gains.
+## Key Milestones
 
-Example States:
+1. **Basic Rule-Based Agent**: An agent that transitions between predefined states with simple decision-making rules.
+2. **Utility-Based Agent**: Agents choose actions based on the value of each potential outcome.
+3. **Reinforcement Learning Agent**: Q-Learning or Deep Q-Learning trained agents to enable longer-term optimization and learning.
+4. **Genetic Algorithms (Optional)**: Evolving agents that improve over multiple generations, simulating human-like learning.
 
-    Work: Allows agents to earn rewards (e.g., money) at the expense of energy and boredom.
-    Travel: Moves agents between locations but incurs costs like time and energy.
-    Idle: A fallback state for resting or waiting, with minimal rewards and penalties.
+## Current Development Path
 
-3. Genome
+### Step 1: Foundation of the Agent System
+We begin by defining the core components of the agent:
 
-The genome represents hereditary information unique to each agent. It encodes genetic traits that influence behavior, decision-making, and performance in various states.
-Genes
+#### Agent Object
+- **Attributes**: Hunger, energy, social needs, and other variables that influence the agent’s actions.
+- **Genome**: Encodes genetic information that affects decision-making and agent behavior.
+- **State Management**: Tracks the agent’s current state and potential actions to transition between states.
+- **Perception**: A system to observe changes in the environment (e.g., detecting hunger or nearby threats).
+- **Decision-Making**: Logic that allows the agent to choose the most appropriate action based on its current needs and environment.
 
-Genes are the building blocks of an agent's genome, represented as {string, value} pairs. Each gene:
+#### Environment
+Defines the world the agent operates in, including:
+- **Resources**, **threats**, or **interactions with other agents**.
+- Can be grid-based, event-driven, or dynamically generated based on certain conditions.
 
-    Impacts the agent’s behavior for specific actions (e.g., Work, Sleep, Eat).
-    Modifies state-specific rewards, costs, or performance metrics.
+### Step 2: Implementing Simple AI
 
-Gene Representation Rules
+We will start by creating simple AI models:
 
-    Abbreviations: Genes are represented using the first 3–4 characters of their name.
-        Example: WorkEfficiency → WorE
-    Capitalization Rules:
-        If the gene value is positive, the first letter is uppercase: WorE+1.0
-        If the gene value is negative, the first letter is lowercase: worE-0.5
-    Range Indication: Capitalization of the second character indicates whether the value is within the genomic range.
-    Numerical Values: Values are displayed with one decimal point: WorE+1.0
+#### Rule-Based AI
+- The agent follows basic predefined rules (e.g., “if hunger is high, move to eat”).
+- Simple state transitions without the ability to adapt or plan ahead.
 
-How It Works
-State Transitions
+#### Utility-Based AI
+- Actions are evaluated based on the agent's internal needs (e.g., energy, hunger, or safety).
+- The agent will execute the highest-value action according to its current state.
+- Introduces a basic form of decision-making based on priorities.
 
-    Action Set Evaluation: Agents evaluate the current state's possible actions using weighted probabilities based on transition costs, state benefits, and genetic predispositions.
-    Dynamic Decisions: Decisions are influenced by internal metrics (e.g., energy, boredom), genetic modifiers, and external events.
-    Weighted Exit Function: Agents use a probabilistic function to determine if they should exit their current state and which state to transition into.
+### Step 3: Learning Mechanisms
 
-Agent Performance
+Once basic AI is functional, we will move to learning systems:
 
-The success of an agent is measured by its ability to:
+#### Reinforcement Learning (RL)
+- Train agents using a reward-punishment system to reinforce positive behaviors and discourage negative ones.
+- Use Q-Learning or basic RL algorithms where agents learn to associate actions with rewards or penalties.
+- Example: Reward eating when hungry, penalize starvation.
 
-    Balance costs and rewards.
-    Adapt behavior based on its genome.
-    Optimize well-being over long periods.
+#### Deep Reinforcement Learning (Optional)
+- Once basic RL setup is successful, extend it to deep RL, where agents use neural networks to learn and adapt in more complex environments.
 
-Features
-1. Modular Design
+### Step 4: Genetic Algorithms (Stretch Goal)
 
-Each state is a self-contained module with:
+If time and resources allow, genetic algorithms (GAs) will be explored as an advanced method of evolving agents:
 
-    Custom Logic: Unique transition conditions and rewards.
-    Dynamic Exit Conditions: Weighted decisions based on agent traits and state metrics.
+#### Genetic Algorithms
+- Evolving agents over multiple generations.
+- Agents “mate” based on fitness, and mutations introduce diversity into the population.
+- Aims to simulate a more biological form of learning, offering long-term adaptation strategies.
 
-2. Dynamic Genetics System
+## Features
 
-The genetic framework introduces variability and individuality in agent behavior:
+- **Modular Agent Design**: Independent modules for states, actions, and decision-making, allowing for easy swaps as agent intelligence increases.
+- **Dynamic State Management**: Agents evaluate and transition between states based on their internal needs and environment. Transition logic changes as more advanced AI systems (utility-based, RL) are introduced.
+- **Adaptive Learning**: The system will include feedback mechanisms to allow agents to learn from experiences, considering both short-term rewards and long-term optimization goals.
+- **Flexible Genome System**: Genetic traits influence agent decision-making and behavior. Potential for evolving agents over time with GAs.
 
-    Each agent’s genome is randomized at creation.
-    Genes influence state performance, transition priorities, and more.
+## Planned Features
 
-3. Flexible Action Sets
+- **Reinforcement Learning**: Gradually introduce RL techniques to improve agent behavior over time.
+- **Deep Q-Learning**: Implement deep reinforcement learning for more complex decision-making.
+- **Visualization Tools**: Real-time visualization of agent behavior, decision-making, and adaptation.
+- **Adaptive Environments**: Integrate dynamic environmental changes or random events to challenge agents and test adaptability.
 
-States define action sets, representing possible transitions or behaviors, such as:
+## Getting Started
 
-    Work → Transition to Travel or Idle.
-    Break → Return to Work or enter Idle.
+To get started with the project:
+    TBD
 
-Planned Features
+## Contributing
 
-    Dynamic Environments: Introduce external factors like unexpected events or environmental changes that influence agent behavior.
-    Adaptive Learning: Allow agents to modify their genome slightly based on cumulative performance.
-    Visualization Tools: Display agent decisions, state transitions, and genome impacts in real time.
+We welcome contributions to this project. To contribute: (TBD This is not the final format)
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push to the branch (`git push origin feature-name`).
+5. Create a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
