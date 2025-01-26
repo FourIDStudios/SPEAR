@@ -3,25 +3,31 @@ import os
 import json
 import math
 
+from Components.Genome import Genome
+
 
 class Attribute:
     """
     Represents a single attribute of an agent.
     """
-    def __init__(self, name, description, initial_value, min_value=None, max_value=None, optimal_value=None):
+    def __init__(self, description, value, min_value=None, max_value=None, optimal_value=None, genomicInfluence = None):
         """
         Initializes the attribute.
         """
-        self.name = name
         self.description = description
-        self.value = initial_value
+        self.value = value
         self.min_value = min_value
         self.max_value = max_value
         self.optimal_value = optimal_value
         
         #Represents Genomic Influence on the attribute, i.e what gene and how much it influences the attribute
-        self.genomicInfluence = {}
+        self.genomicInfluence = genomicInfluence
         pass
+    
+    def __repr__(self):
+        return f"Attribute(description={self.description}, value={self.value}, min_value={self.min_value}, max_value={self.max_value}, optimal_value={self.optimal_value}, genomicInfluence={self.genomicInfluence})"
+
+        
     
 class Attributes:
     """
@@ -47,12 +53,11 @@ class Attributes:
         self.attributes = {
             attribute_name: Attribute(
                 description=details["description"],
-                value=details["actions"],
-                initial_value=details.get("benefits"),
-                min_value=details.get("maxDuration"),
+                value=details["initial_value"],
+                min_value=details.get("min_value"),
                 max_value= details.get("max_value"),
                 optimal_value= details.get("optimal_value"),
-                genomicInfluence = details.get("genomicInfluence")
+                genomicInfluence = details.get("influence_genes")
         )
         for attribute_name, details in attribute_config.items()
         }
@@ -61,7 +66,7 @@ class Attributes:
         self.last_updated = time.time()
         
     #==================================================[Core methods]==================================================
-    def Modify(self, Agent, attribute_name, value):
+    def modify(self, genome:Genome, attribute_name:str, value:float):
         """
         Modifies the value of an attribute by a given amount.
         
@@ -70,7 +75,7 @@ class Attributes:
         """
         
         # Fetch necessary information from the agent
-        agentGenome = Agent.genome
+        agentGenome = genome
         
         # Ensure the attribute exists
         attribute:Attribute = self.attributes.get(attribute_name)
@@ -78,7 +83,7 @@ class Attributes:
             return False
         
         # Update the attribute value, ensuring it stays within the min/max bounds with the genomic influence
-        attribute['value'] = math.max(attribute.min_value, min(attribute.value+value, attribute.max_value))
+        attribute.value = max(attribute.min_value, min(attribute.value+value, attribute.max_value))
         
         # Check for genomic influence (Gain or Drain) i.e AmbitionGain, AmbitionDrain
         for geneName, influence in attribute.genomicInfluence.items():
@@ -87,19 +92,19 @@ class Attributes:
                 geneInfo = agentGenome.getGene(geneName)
                 if not geneInfo or geneInfo == None:
                     continue
-                gainAmount = value * (influence * geneInfo.value)
-                attribute['value'] = math.max(attribute.min_value, min(attribute['value']+gainAmount, attribute.max_value))
+                gainAmount = value * (influence * geneInfo.get('value'))
+                attribute.value = max(attribute.min_value, min(attribute.value+gainAmount, attribute.max_value))
             elif(str.endswith(geneName, "Drain")):
                 #Check if the gene is present in the genome
                 geneInfo = agentGenome.getGene(geneName)
                 if not geneInfo or geneInfo == None:
                     continue
-                drainAmount = value * (influence * geneInfo.value)
-                attribute['value'] = math.max(attribute.min_value, min(attribute['value']-drainAmount, attribute.max_value))
+                drainAmount = value * (influence * geneInfo.get('value'))
+                attribute.value = max(attribute.min_value, min(attribute.value-drainAmount, attribute.max_value))
         
         return True
     
-    def Get(self, attribute_name):
+    def get(self, attribute_name):
         """
         Retrieves an attribute by name.
         
@@ -108,7 +113,7 @@ class Attributes:
         """
         return self.attributes.get(attribute_name)
     
-    def GetValue(self, attribute_name):
+    def getValue(self, attribute_name):
         """
         Retrieves the value of an attribute.
         
@@ -122,7 +127,7 @@ class Attributes:
         
         return attribute.value
     
-    def GetWellBeing(self):
+    def getWellBeing(self):
         """
         Calculates the agent's well-being based on the current attribute values.
         These values are compared to the optimal values to determine the agent's overall well-being.

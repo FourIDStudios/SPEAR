@@ -6,3 +6,6 @@ https://miro.com/welcomeonboard/Vy9yYTNxT05QV1dHRGNYWitJdnVOK1NNcXBlVlBzRDdaWStn
 *I would reccomend taking a look at this resource before touching the code, the goals & scopes sections*
 *outline the plan of attack and more or less outlines the project*
 https://www.notion.so/Wiki-185f3562033a8078bb26c5d9d4ced376?pvs=4
+
+**Jira Task Board (To Do and so on)**
+https://aamoba.atlassian.net/jira/polaris/projects/SPEAR/ideas/view/6096876

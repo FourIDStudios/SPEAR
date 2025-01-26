@@ -1,4 +1,29 @@
+import copy
 import time
+import os
+import json
+
+from Components.Body import Body
+
+
+#Fetch Configurations
+state_config = {}
+targetDir = os.path.join(os.path.dirname(__file__), '..', 'Utils', 'states.json')
+
+with open(targetDir) as f:
+    state_config = json.load(f)
+    
+# Create StateInfo Table from the configuration
+States = {
+    state_name: {
+        "name": state_name,
+        "actionList": details["actions"],
+        "benefits": details.get("benefits"),
+        "maxDuration": details.get("maxDuration")
+    }
+    for state_name, details in state_config.items()
+}
+
 
 class State:
     """
@@ -23,17 +48,63 @@ class State:
         self.last_entered = None  # Track when this state was last entered
         
     #==================================================[Core methods]==================================================
-    def evalute_and_act(self):
+    def evalute_and_act(self, body:Body): #Requires a snapshot of the current state of the agent
         """
-        Evaluates possible actions and decides the next action to perform.
+        Evaluates possible actions and decides the next action to perform. based
+        on conditional logic.
 
         :return: The chosen action or 'continue' if no transitions are preferred.
         """
+        
+        """"
+        Takes a look at the benefits form the variouse states and decides which state to transition to
+        based on which state results in a higher well-being for the agent
+        """
+        
         if not self.action_list:  # No actions to take
             return "continue"
-        # Example: Prioritize the first action in the action list for now
-        # return list(self.action_list.keys())[0]
-        return "continue"
+        
+        #Get the current state of the agent
+        Current_Wellbeing_score = body.attributes.getWellBeing()
+        
+        #Get a copy of the body of the agent (copy of the attribute object)
+        Current_Body = copy.deepcopy(body.attributes)
+        
+        #Iterate through the possible actions and calculate the well-being of the agent in each state
+        Possible_States = []
+        for action in self.action_list:
+            Next_State = States[self.action_list[action]]
+            Next_State_Benefits = Next_State.get('benefits') #{Money:10, Health: -1}
+            
+            #Iterate overz the benefits of the next state and calculate the well-being of the agent
+            for benefit, value in Next_State_Benefits.items():
+                
+                #Ensure the benefit exists in the current well-being (shouldn't be possible but just in case)
+                if(Current_Body.get(benefit) == None):
+                    continue
+                #Modify the current well-being of the agent
+                Current_Body.modify(body.genome, benefit, value)
+            
+            #Store the well-being of the agent in the next state (name,wellbeing)
+            Possible_States.append((action,Current_Body.getWellBeing()))
+        
+        #Find the state that results in the highest well-being for the agent
+        Best_Action = {
+            "Action":'continue',
+            "Wellbeing":Current_Wellbeing_score
+        }
+        
+        #Iterate through the possible states and find the state that results in the highest well-being for the agent
+        for Action,Wellbeing in Possible_States:
+            if(Best_Action["Action"] == None): #Shouldn't be possible but just in case
+                Best_Action["Action"] = Action
+                Best_Action["Wellbeing"] = Wellbeing
+            elif(Wellbeing > Best_Action["Wellbeing"]): #If the well-being of the agent in the next state is higher than the current state
+                Best_Action["Action"] = Action
+                Best_Action["Wellbeing"] = Wellbeing
+        
+        #Return the action that results in the highest well-being for the agent
+        return Best_Action["Action"]
     
     def can_continue(self):
         """

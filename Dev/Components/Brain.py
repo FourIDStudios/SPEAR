@@ -2,14 +2,15 @@ import time
 import os
 import json
 from Components.State import State
-from Utils.Logger import Logger
+from Utils.Logger import Logger as CLogger
+from Components.Attributes import Attributes
 
+
+Logger = CLogger()
 #Fetch Configurations
 state_config = {}
 targetDir = os.path.join(os.path.dirname(__file__), '..', 'Utils', 'states.json')
 
-Logger.debug = True
-Logger.logln(f"[PAI][FSM]: Fetching states from {targetDir}")
 with open(targetDir) as f:
     state_config = json.load(f)
     
@@ -26,15 +27,17 @@ States = {
 
 class Brain:
     #==================================================[Initialization]==================================================
-    def __init__(self, initial_state:State, interval=1.0):
+    def __init__(self,body:Attributes, initial_state:State=None, interval=1.0):
         """
         Initializes the FSM with a starting state.
 
         :param initial_state: The starting State object.
         """
+        self.body = body
         self.current_state:State = initial_state if initial_state else States["Resting"]
         self.interval = interval
-    
+        
+        Logger.logln(f"[PAI][FSM]: Brain Initiallized with state {self.current_state.name}")
     #==================================================[Core methods]==================================================
     def Think(self, action:None): #-> Transitions to the next state (if applicable)
         """
@@ -73,11 +76,10 @@ class Brain:
         """
         Processes an action in the current state.
 
-        :param action: The action to process.
         """
         
         # Evaluate the current stae's possible actions and decide the next action to perform
-        action = self.current_state.evalute_and_act()
+        action = self.current_state.evalute_and_act(self.body)
         Logger.logln(f"[PAI][FSM]: Processing action '{action}' in state '{self.current_state.name}'")
         
         # Check for Continue action, present in all states
@@ -93,7 +95,9 @@ class Brain:
         # Check for other possible actions in the current state
         elif action in self.current_state.get_possible_actions():
             #Fetch the next state
-            next_state_name = action
+            print("Action: ",action, "Possible States: ",self.current_state.get_possible_actions())
+            print("Action List: ",self.current_state.action_list)
+            next_state_name = self.current_state.action_list[action]
             Logger.logln(f"[PAI][FSM]: Transitioning from '{self.current_state.name}' to '{next_state_name}'")
             self.enter_state(States[next_state_name])
             
@@ -141,12 +145,3 @@ class Brain:
     def __repr__(self):
         return f"FiniteStateMachine(current_state={self.current_state})"
     
-
-
-#==================================================[Testing]==================================================
-
-# # Create Agent A with the initial state 'resting'
-# AgentA = Brain(States["Resting"])
-
-# # Start the autonomous decision-making loop
-# AgentA.Think(None)

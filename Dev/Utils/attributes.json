@@ -12,10 +12,10 @@
     },
     "Health": {
         "description": "Reflects the agent's overall physical well-being. Low health impacts performance.",
-        "initial_value": 100,
+        "initial_value": 10,
         "min_value": 0,
-        "max_value": 100,
-        "optimal_value": 100,
+        "max_value": 10,
+        "optimal_value": 10,
         "influence_genes": {
             "AdaptabilityGain": 0.5,
             "AdaptabilityDrain": -0.5
@@ -102,8 +102,8 @@
         "description": "Represents the agent's understanding and information about its environment and tasks.",
         "initial_value": 0,
         "min_value": 0,
-        "max_value": 100,
-        "optimal_value": 100,
+        "max_value": 10,
+        "optimal_value": 10,
         "influence_genes": {
             "CuriosityGain": 0.5,
             "CuriosityDrain": -0.5
@@ -122,10 +122,10 @@
     },
     "Safety": {
         "description": "Reflects how secure the agent feels in its current environment.",
-        "initial_value": 100,
+        "initial_value": 10,
         "min_value": 0,
-        "max_value": 100,
-        "optimal_value": 100,
+        "max_value": 10,
+        "optimal_value": 10,
         "influence_genes": {
             "AdaptabilityGain": 0.5,
             "AdaptabilityDrain": -0.5

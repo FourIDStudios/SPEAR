@@ -5,16 +5,15 @@ import math
 import os
 from Genes import Genes  # This works since they are in the same directory
 
-from Utils.Logger import Logger # Error: ModuleNotFoundError: No module named 'Utils'
+from Utils.Logger import Logger as CLogger 
 
 #Initial Setup
-Logger.debug = True
+Logger = CLogger()
 
 #Fetch Configurations
 Settings = {}
 targetDir = os.path.join(os.path.dirname(__file__), '..', 'Utils', 'settings.json')
 
-Logger.logln(f"[PAI][GENOMES SEQUENCER]: Fetching settings from {targetDir}")
 with open(targetDir) as f:
     Settings = json.load(f)
 
@@ -53,7 +52,7 @@ class Genome:
     
     def __init__(self, ParentGenome = None, MutationRate = Settings['DefaultParentMutationRate'], geneLength = Settings['GenomeLength']):
         self.Sequence = self.GenerateGenome(ParentGenome, MutationRate, geneLength)
-        
+        Logger.logln(f"[PAI][GENOMES SEQUENCER]: Genome sequence created with {geneLength} genes")
         pass
 
     def getGene(self, geneName):
@@ -144,19 +143,5 @@ class Genome:
             # gene['value'] = max(gene['genomicrange'][0], min(gene['value'], gene['genomicrange'][1]))
         else:
             Logger.logln(f"[PAI][GENOMES SEQUENCER]: Could not mutate gene: {geneName} because it does not exist.")
-
-
-#=================================================================Test & Debug Area
-Logger.logln(f"[PAI][GENOMES SEQUENCER]: Creating Agent A", True)
-AgentA = {
-    'Name': "Agent A",
-    'Genome': Genome(),
-}
-Logger.logln(f"[PAI][GENOMES SEQUENCER]: Creating Agent B, with Agent A as parent", True)
-AgentB = {
-    'Name': "Agent A",
-    'Genome': Genome(AgentA['Genome'].getpureSequence()),
-}
-
 
 
