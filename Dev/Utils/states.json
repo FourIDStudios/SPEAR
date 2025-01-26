@@ -5,7 +5,10 @@
         "Work": "Working"
       },
       "benefits": {
-        "Energy": 1
+        "Energy": 1,
+        "Sleep":2,
+        "Happiness": -1,
+        "Health":-0.1
       },
       "maxDuration": 5
     },
@@ -15,7 +18,9 @@
         "Work": "Working"
       },
       "benefits": {
-        "Health": 1
+        "Health": 1,
+        "Energy":-0.25,
+        "Sleep":-0.01
       },
       "maxDuration": 5
     },
@@ -25,7 +30,11 @@
         "Explore": "Exploring"
       },
       "benefits": {
-        "Money": 1
+        "Money": 3,
+        "Happiness": -1,
+        "Health":-1,
+        "Focus":-0.25,
+        "Sleep":-0.01
       },
       "maxDuration": 5
     },
@@ -35,7 +44,10 @@
         "Work": "Working"
       },
       "benefits": {
-        "Happiness": 1
+        "Happiness": 5,
+        "Energy":-2,
+        "Health":-0.05,
+        "Sleep":-0.01
       },
       "maxDuration": 5
     }

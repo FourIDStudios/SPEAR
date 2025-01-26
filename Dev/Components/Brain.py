@@ -4,7 +4,7 @@ import json
 from Components.State import State
 from Utils.Logger import Logger as CLogger
 from Components.Attributes import Attributes
-
+from Components.Body import Body
 
 Logger = CLogger()
 #Fetch Configurations
@@ -27,7 +27,7 @@ States = {
 
 class Brain:
     #==================================================[Initialization]==================================================
-    def __init__(self,body:Attributes, initial_state:State=None, interval=1.0):
+    def __init__(self,body:Body, initial_state:State=None, interval=1.0):
         """
         Initializes the FSM with a starting state.
 
@@ -63,13 +63,15 @@ class Brain:
             Logger.logln(f"[PAI][FSM]: Invalid state '{state.name}'.")
             return 
         
-        # Reset Current State (if applicable)
-        if(self.current_state):
+        # Reset Current State (if applicable) 
+        #TODO This should check if the next state is current
+        if(self.current_state ):
             self.current_state.reset_state()
             
         # Transition to the next state
         self.current_state = state
         self.current_state.last_entered = time.time()
+        
         Logger.logln(f"[PAI][FSM]: Entering state '{state.name}'")
         
     def process_Action(self): #-> Transitions to the next state (if applicable)
@@ -77,6 +79,13 @@ class Brain:
         Processes an action in the current state.
 
         """
+        
+        #  Modify Body based on state benefits
+        for benefit,value in self.current_state.benefits.items():
+            #TODO state transitions should come at an additional cost (do in benefits)
+            self.body.attributes.modify(self.body.genome, benefit, value)
+            Logger.logln(f"[PAI][FSM]: Modifying Attribute '{benefit}' by '{value}'")
+
         
         # Evaluate the current stae's possible actions and decide the next action to perform
         action = self.current_state.evalute_and_act(self.body)
