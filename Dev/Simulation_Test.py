@@ -92,8 +92,6 @@ print('Mapped Status Data: ',nivo_data)
 # Log pie data for debugging
 st.session_state.Logger.logln(f"PIE DATA: {nivo_data}")
 
-with elements("demo"):
-    mui.Typography("Hello, World!", variant="h4")
 with elements("nivo_charts"):
     # Use the Radar chart
     with mui.Box(sx={"height": 500}):
@@ -144,5 +142,5 @@ with elements("nivo_charts"):
 while st.session_state.x < 100:
     st.session_state.x+=1
     time.sleep(3)
-    st.rerun()
+    st.rerun() #Reloads the webapp
     print("Site Updated")

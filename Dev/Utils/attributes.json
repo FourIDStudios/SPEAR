@@ -12,7 +12,7 @@
     },
     "Health": {
         "description": "Reflects the agent's overall physical well-being. Low health impacts performance.",
-        "initial_value": 10,
+        "initial_value": 4,
         "min_value": 0,
         "max_value": 10,
         "optimal_value": 10,
@@ -34,7 +34,7 @@
     },
     "Sleep": {
         "description": "Represents how rested the agent is. Affects focus, energy, and mood.",
-        "initial_value": 7,
+        "initial_value": 1,
         "min_value": 0,
         "max_value": 10,
         "optimal_value": 7,
