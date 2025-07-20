@@ -1,6 +1,6 @@
 # Agent-Based AI System
 
-##PROJECT ON HOLD DUE TO COLLEGE & WORK
+## PROJECT ON HOLD DUE TO COLLEGE & WORK
 
 
 ## Overview
