@@ -1,5 +1,8 @@
 # Agent-Based AI System
 
+##PROJECT ON HOLD DUE TO COLLEGE & WORK
+
+
 ## Overview
 
 This project explores the development of an **agent-based artificial intelligence system** designed to simulate agents interacting with their environment. These agents will perceive their surroundings, make decisions based on those perceptions, and adapt over time. The system will evolve from simple rule-based models to more sophisticated decision-making frameworks, such as utility-based AI, reinforcement learning (RL), and potentially genetic algorithms (GAs).
